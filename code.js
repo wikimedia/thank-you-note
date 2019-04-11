@@ -20,6 +20,7 @@ function onNewData(e) {
 	  ''
   ].join( '<br />' );
 
+  if ( !recipient ) { return; }
   GmailApp.sendEmail(recipient, 'You have a thank you note', '', {htmlBody: body, noReply: true, name: 'Secret Admirer'});
 }
 
