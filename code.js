@@ -7,11 +7,25 @@ function onNewData(e) {
   }
   var vals = e.namedValues;
   var recipient = vals['Email of the person you want to send a thank you note to'][0];
-  var reason = vals['What do you want to thank them for?'][0];
+  var reasons = vals['What do you want to thank them for?'];
+
+  if ( Array.isArray( reasons ) ) {
+	  // Bold the reasons specifically
+	  reasons = reasons.map( function ( r ) {
+		  return '<strong>' + r + '</strong>';
+	  } );
+
+	  // Add "and" before the last one
+	  reasons[ reasons.length - 1 ] = 'and ' + reasons[ reasons.length - 1 ];
+
+	  // Join it all with commas
+	  reasons = reasons.join( ', ' );
+  }
+
   var body = [
 	  'Hey you, worker bee!',
 	  '',
-	  'Somebody wants to show you are appreciated and are thanking you for <b>' + reason + '</b>',
+	  'Somebody wants to show you are appreciated and are thanking you for: ' + reasons,
 	  '',
 	  'Here\'s a cute image, just for you:',
 	  getRandomCuteImage(),
